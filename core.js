@@ -1,5 +1,6 @@
 (function(){
 var app = angular.module('myApp',[]);
+
 app.controller('GetController',['$scope','$http',function($scope,$http) {
 loadData();
 
@@ -17,10 +18,10 @@ loadData();
 		participants: ''
 		};
     $scope.evtry=false;
+    $scope.filled=false;
     $http.get('http://localhost:7000/events') 
         .success(function(data){ 
         $scope.events=data;
-        $scope.filled=false;
         //text box
 		var finalData =$.map($scope.events, function(item) {
 			  return {
@@ -61,19 +62,32 @@ loadData();
 	  });
 });
 
-}]);
+  $('#delete').click(function() {
+ $http.delete('http://localhost:7000/events/'+$scope.id_num)
+        .success(function(data){ 
+        alert("You have successfully deleted an event");
+		})
+		.error(function(data){ alert("Angular Cannot Connect to REST API Server"); });
+	  loadData();
+});
 
-
-app.controller('Change',['$scope','$http',function($scope,$http){
 $scope.create = function () {
 $http.post('http://localhost:7000/events',$scope.newEvent)
         .success(function(data){ 
         alert("You have successfully created an event");
+        $scope.evtry=false;
+	  	$scope.filled=false;
+	  	$scope.refresh();
 		})
 		.error(function(data){ alert("Angular Cannot Connect to REST API Server"); });
-
-
 };
+
+
+}]);
+
+
+app.controller('Change',['$scope','$http',function($scope,$http){
+
     
 
 }]);

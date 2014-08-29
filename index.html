@@ -48,12 +48,12 @@
 					</li>
 					<fieldset>
 					<input type="submit" style="background-color:green" class="btn btn-primary pull-left" value="Create New Event" id="post"/>
-					<input type="submit" style="background-color:red" class="btn btn-primary pull-right" value="Delete Event" id="delete"/>
+					<input type="submit" style="background-color:red" class="btn btn-primary pull-right" value="Delete Event" id="delete" ng-click="deletevent()"/>
 					<div align="center"><input type="submit" class="btn btn-primary" value="Update Event" id="put"/></div>
 					</fieldset>
 
 				</div>
-				<div class="list-group" ng-show="evtry" ng-controller="Change"> 
+				<div class="list-group" ng-show="evtry"> 
 				<form name="eventdetails" id="details" novalidate>
 						<h3> Enter Event Details</h3>
 						<fieldset class="form-group">
