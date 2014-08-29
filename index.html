@@ -2,88 +2,111 @@
 <html ng-app="myApp">
     <head>
         <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
-		<script src="core.js"></script>
-		<script src="jq/external/jquery/jquery.js"></script>
-		<script src="jq/jquery-ui.js"></script>
-		<link rel="stylesheet" href="jq/jquery-ui.css" />
-		<link rel="stylesheet" href="jq/jquery-ui.theme.css" />
-		<link rel="stylesheet" href="jq/jquery-ui.structure.css" />
-		<style media="screen" type="text/css">
-			.ng-invalid.ng-dirty{
-			border-color: red;
-			}
-			.ng-valid.ng-dirty{
-			border-color: green;
-			}
-			
-		</style>
-	</head>
-
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script src="core.js"></script>
+        <script src="jq/external/jquery/jquery.js"></script>
+        <script src="jq/jquery-ui.js"></script>
+        <link rel="stylesheet" href="jq/jquery-ui.css" />
+        <link rel="stylesheet" href="jq/jquery-ui.theme.css" />
+        <link rel="stylesheet" href="jq/jquery-ui.structure.css" />
+        <style media="screen" type="text/css">
+            .ng-invalid.ng-dirty{
+            border-color: red;
+            }
+            .ng-valid.ng-dirty{
+            border-color: green;
+            }
+        </style>
+    </head>
     <header>
-		<h1 class="text-center">Welcome to my RESTful API implementation that interacts with a mongodb database...</h1>
+        <h1 class="text-center">Welcome to my RESTful API implementation that interacts with a mongodb database...</h1>
     </header>
     <body  class="list-group-item" style="background-color:silver;">
-    	<input type="text" ng-model="keyword" placeholder="Enter a keyword here">
-		<h1>Hello, {{ keyword }}!</h1>
-		<div ng-controller="GetController" class="list-group-item" >
-			<div id="container" style="background-color:lightgrey;" >
-				<h2 class="text-left"> There are <span>{{events.length}}</span> events in the database so far. Lets get Started! </h2>
-			</div>	
-			<div class="list-group" id="container" >
-				<div class="text-center">
-					<h3><strong>Search for an Event<strong><h3>
-					<input type="text" id="search" placeholder="Enter the Title">
-				</div>
-				<div ng-show="filled"> 
-					<li class="list-group-item">Title: <em class="pull-right">{{title}}</em> </li>
-					<li class="list-group-item">Location: <em class="pull-right">{{location}}</em></li>
-					<li class="list-group-item">Description: <em class="pull-right">{{description}}</em></li>
-					<li class="list-group-item">From: <em class="pull-right">{{from| date: 'EEEE, MMMM d, y h:mm:ss a'}}</em></li>
-					<li class="list-group-item">To: <em class="pull-right">{{to|date: 'EEEE, MMMM d, y h:mm:ss a'}}</em></li>
-					<li class="list-group-item" >Participants:
-						<ul ng-repeat="participant in participants" class="pull-right">
-						<em >{{participant}}</em>
-						</ul>
-					</li>
-					<fieldset>
-					<input type="submit" style="background-color:green" class="btn btn-primary pull-left" value="Create New Event" id="post"/>
-					<input type="submit" style="background-color:red" class="btn btn-primary pull-right" value="Delete Event" id="delete" ng-click="deletevent()"/>
-					<div align="center"><input type="submit" class="btn btn-primary" value="Update Event" id="put"/></div>
-					</fieldset>
-
-				</div>
-				<div class="list-group" ng-show="evtry"> 
-				<form name="eventdetails" id="details" novalidate>
-						<h3> Enter Event Details</h3>
-						<fieldset class="form-group">
-						<input type="text" ng-model="newEvent.title" placeholder="Enter the title" class="form-control" required/>
-						</fieldset>
-						<fieldset class="form-group">
-						<input type="text" ng-model="newEvent.location" placeholder="Enter the location" class="form-control" required/>
-						</fieldset>
-						<fieldset class="form-group">
-						<textarea ng-model="newEvent.description" placeholder="Write a short description..." class="form-control" required></textarea>
-						</fieldset>
-						<fieldset class="form-group">
-						From: <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" ng-model="newEvent.from" class="form-control" required/>
-						</fieldset>
-						<fieldset class="form-group">
-						To: <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" ng-model="newEvent.to" class="form-control" required/>
-						</fieldset>
-						<fieldset class="form-group">
-						<input type="text" ng-model="newEvent.participants" placeholder="Enter Participant names separated by a space" class="form-control" required/>
-						</fieldset>
-						<fieldset class="form-group">
-							<input type="submit" class="btn btn-primary pull-right" value="Create Event" ng-disabled="!eventdetails.$valid" ng-click="create()"/>
-						</fieldset>
-				</form>
-				</div>
-			
-			</div>
-			
-
-		</div>
-        
+        <input type="text" ng-model="keyword" placeholder="Enter your name here">
+        <h1>Hello, {{ keyword }}!</h1>
+        <div ng-controller="GetController" class="list-group-item" >
+            <div id="container" style="background-color:lightgrey;" >
+            	<input type="submit" class="btn btn-primary pull-right" value="Home" ng-click="refresh()"/>
+                <h2 class="text-left"> There are <span>{{events.length}}</span> events in the database so far. Lets get Started! </h2>
+            </div>
+            <div class="list-group" id="container" >
+                <div class="text-center">
+                    <h3>
+                    <strong>Search for an Event<strong>
+                    <h3>
+                    <input type="text" id="search" placeholder="Enter the Title">
+                </div>
+                <div ng-show="filled">
+                    <li class="list-group-item">Title: <em class="pull-right">{{title}}</em> </li>
+                    <li class="list-group-item">Location: <em class="pull-right">{{location}}</em></li>
+                    <li class="list-group-item">Description: <em class="pull-right">{{description}}</em></li>
+                    <li class="list-group-item">From: <em class="pull-right">{{from| date: 'EEEE, MMMM d, y h:mm:ss a'}}</em></li>
+                    <li class="list-group-item">To: <em class="pull-right">{{to|date: 'EEEE, MMMM d, y h:mm:ss a'}}</em></li>
+                    <li class="list-group-item" >
+                        Participants:
+                        <ul ng-repeat="participant in participants" class="pull-right">
+                            <em >{{participant}}</em>
+                        </ul>
+                    </li>
+                    <fieldset>
+                        <input type="submit" style="background-color:green" class="btn btn-primary pull-left" value="Create New Event" id="post"/>
+                        <input type="submit" style="background-color:red" class="btn btn-primary pull-right" value="Delete Event" id="delete"/>
+                        <div align="center"><input type="submit" class="btn btn-primary" value="Update Event" id="put"/></div>
+                    </fieldset>
+                </div>
+                <div class="list-group" ng-show="evtry">
+                    <form name="eventdetails" id="details"  >
+                        <h3> Enter Event Details</h3>
+                        <fieldset class="form-group">
+                            <input type="text" ng-model="newEvent.title" placeholder="Enter the title" class="form-control" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" ng-model="newEvent.location" placeholder="Enter the location" class="form-control" required/>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <textarea ng-model="newEvent.description" placeholder="Write a short description..." class="form-control" required></textarea>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            From: <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" ng-model="newEvent.from" class="form-control" required/>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            To: <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" ng-model="newEvent.to" class="form-control" required/>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" ng-model="newEvent.participants" placeholder="Enter Participant names separated by a space" class="form-control" required/>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="submit" class="btn btn-primary pull-right" value="Create Event" ng-disabled="!eventdetails.$valid" ng-click="create()"/>
+                        </fieldset>
+                    </form>
+                </div>
+                <div class="list-group" ng-show="updates">
+                    <form name="eventdetails" id="details" novalidate>
+                        <h3> Enter New Event Details</h3>
+                        <fieldset class="form-group">
+                            <input type="text" ng-model="newEvent.title" placeholder="{{title}}" class="form-control" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" ng-model="newEvent.location" placeholder="{{location}}" class="form-control" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <textarea ng-model="newEvent.description" placeholder="{{description}}" class="form-control" ></textarea>
+                        </fieldset>
+                        <fieldset class="form-group">
+                            From: <input type="datetime-local" placeholder="{{from}}" ng-model="newEvent.from" class="form-control" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            To: <input type="datetime-local" placeholder="{{to}}" ng-model="newEvent.to" class="form-control" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="text" ng-model="newEvent.participants" placeholder="{{participants.toString()}} Enter participants separated by a space..." class="form-control" />
+                        </fieldset>
+                        <fieldset class="form-group">
+                            <input type="submit" class="btn btn-primary pull-right" value="Update Event" ng-disabled="!eventdetails.$valid" ng-click="update()"/>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
