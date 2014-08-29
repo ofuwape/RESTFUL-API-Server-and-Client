@@ -2,10 +2,20 @@
 var app = angular.module('myApp',[]);
 app.controller('GetController',['$scope','$http',function($scope,$http) {
 loadData();
+
 	$scope.refresh=function(){
 	loadData();
 	}
     function loadData(){
+    $scope.newEvent={
+		title: '',
+		location:'',
+		description:'',
+		to: '',
+		from: '',
+		owner: 'Oluwatoni F.',
+		participants: ''
+		};
     $scope.evtry=false;
     $http.get('http://localhost:7000/events') 
         .success(function(data){ 
@@ -48,23 +58,26 @@ loadData();
 	   $scope.$apply(function(){
 	  $scope.evtry=true;
 	  $scope.filled=false;
-	  $scope.createEvents=function(){
-	  alert($('#details').elements('tle'));
-	  }
 	  });
-	  alert("You have successfully created an event");
-	 //  $http.post('http://localhost:7000/events/'+id_num,vdata) 
-//         .success(function(data){ 
-//         alert("You have successfully created an event");
-//        loadData();
-// 		})
-// 		.error(function(data){ alert("Angular Cannot Connect to REST API Server"); }
-
 });
 
+}]);
 
+
+app.controller('Change',['$scope','$http',function($scope,$http){
+$scope.create = function () {
+$http.post('http://localhost:7000/events',$scope.newEvent)
+        .success(function(data){ 
+        alert("You have successfully created an event");
+		})
+		.error(function(data){ alert("Angular Cannot Connect to REST API Server"); });
+
+
+};
+    
 
 }]);
+
 
 
 })();

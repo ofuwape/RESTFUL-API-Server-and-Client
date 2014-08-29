@@ -94,7 +94,7 @@ MongoClient.connect('mongodb://assessment:assessmentEvents2014@ds037977.mongolab
         //router.route('/events')
         // get all the events I created
         app.get('/events',function(req, res) {
-            events.find({ owner: {$regex: new RegExp('\\b'+'Oluwatoni'+'\\b','i')} }).toArray(function(err, results){
+            events.find({ owner: {$regex: new RegExp('\\b'+''+'\\b','i')} }).toArray(function(err, results){
                 if(err) throw err;
                 
                 res.json(results);

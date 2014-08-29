@@ -47,39 +47,37 @@
 						</ul>
 					</li>
 					<fieldset>
-					<input type="submit" class="btn btn-primary pull-left" value="Create New Event" id="post"/>
-					<input type="submit" class="btn btn-primary pull-right" value="Delete Event" id="delete"/>
+					<input type="submit" style="background-color:green" class="btn btn-primary pull-left" value="Create New Event" id="post"/>
+					<input type="submit" style="background-color:red" class="btn btn-primary pull-right" value="Delete Event" id="delete"/>
 					<div align="center"><input type="submit" class="btn btn-primary" value="Update Event" id="put"/></div>
 					</fieldset>
 
 				</div>
-				<div class="list-group" ng-show="evtry"> 
-				<section >
-				<form name="eventDetails" id="details" class="form-group list-group-item" ng-submit="eventDetails.$valid && createEvents()" novalidate>
+				<div class="list-group" ng-show="evtry" ng-controller="Change"> 
+				<form name="eventdetails" id="details" novalidate>
 						<h3> Enter Event Details</h3>
 						<fieldset class="form-group">
-						<input type="text" name="tle" placeholder="Enter the title" class="form-control" required/>
+						<input type="text" ng-model="newEvent.title" placeholder="Enter the title" class="form-control" required/>
 						</fieldset>
 						<fieldset class="form-group">
-						<input type="text" name="loc" placeholder="Enter the location" class="form-control"/>
+						<input type="text" ng-model="newEvent.location" placeholder="Enter the location" class="form-control" required/>
 						</fieldset>
 						<fieldset class="form-group">
-						<textarea name="des" placeholder="Write a short description..." class="form-control"></textarea>
+						<textarea ng-model="newEvent.description" placeholder="Write a short description..." class="form-control" required></textarea>
 						</fieldset>
 						<fieldset class="form-group">
-						From: <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" name="frm" class="form-control"/>
+						From: <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" ng-model="newEvent.from" class="form-control" required/>
 						</fieldset>
 						<fieldset class="form-group">
-						To: <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" name="too" class="form-control"/>
+						To: <input type="datetime-local" placeholder="yyyy-MM-ddTHH:mm" ng-model="newEvent.to" class="form-control" required/>
 						</fieldset>
 						<fieldset class="form-group">
-						<input type="text" name="par" placeholder="Enter Participant names separated by ," class="form-control"/>
+						<input type="text" ng-model="newEvent.participants" placeholder="Enter Participant names separated by a space" class="form-control" required/>
 						</fieldset>
 						<fieldset class="form-group">
-							<input type="submit" class="btn btn-primary pull-right" value="Create Event" />
+							<input type="submit" class="btn btn-primary pull-right" value="Create Event" ng-disabled="!eventdetails.$valid" ng-click="create()"/>
 						</fieldset>
 				</form>
-				<section>
 				</div>
 			
 			</div>
