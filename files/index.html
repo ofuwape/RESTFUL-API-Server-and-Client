@@ -9,20 +9,14 @@
         <link rel="stylesheet" href="jq/jquery-ui.css" />
         <link rel="stylesheet" href="jq/jquery-ui.theme.css" />
         <link rel="stylesheet" href="jq/jquery-ui.structure.css" />
-        <style media="screen" type="text/css">
-            .ng-invalid.ng-dirty{
-            border-color: red;
-            }
-            .ng-valid.ng-dirty{
-            border-color: green;
-            }
-        </style>
+        <link rel="stylesheet" href="styles.css" />
+        
     </head>
     <header>
         <h1 class="text-center">Welcome to my RESTful API implementation that interacts with a mongodb database...</h1>
     </header>
     <body  class="list-group-item" style="background-color:silver;">
-        <input type="text" ng-model="keyword" placeholder="Enter your name here">
+        <input class="magic" type="text" ng-model="keyword" placeholder="Enter your name here">
         <h1>Hello, {{ keyword }}!</h1>
         <div ng-controller="GetController" class="list-group-item" >
             <div id="container" style="background-color:lightgrey;" >
